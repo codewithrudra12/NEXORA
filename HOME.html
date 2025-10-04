@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexora - Your Next Aura</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #f0f0f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid #222;
+            background-color: rgba(10, 10, 10, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-text {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #f0f0f0;
+            text-transform: uppercase;
+            position: relative;
+        }
+        
+        .logo-text::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #333, #555, #333);
+        }
+        
+        .tagline-small {
+            font-size: 0.8rem;
+            font-weight: 300;
+            margin-left: 10px;
+            color: #aaa;
+            letter-spacing: 1px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: #f0f0f0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            font-size: 1rem;
+            position: relative;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: #f0f0f0;
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        nav a:hover {
+            color: #ddd;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            padding: 80px 0 60px;
+            text-align: center;
+        }
+        
+        .tagline {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        
+        .description {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+            color: #ccc;
+            font-size: 1.1rem;
+        }
+        
+        .coming-soon {
+            font-size: 3.5rem;
+            margin: 30px 0;
+            font-weight: 300;
+            letter-spacing: 3px;
+            position: relative;
+        }
+        
+        .coming-soon::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background-color: #444;
+        }
+        
+        /* Features Section */
+        .features-section {
+            padding: 80px 0;
+            background-color: #111;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        
+        .features-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-box {
+            background-color: #1a1a1a;
+            padding: 40px 25px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid #222;
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+        
+        .feature-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .feature-desc {
+            color: #aaa;
+            line-height: 1.6;
+        }
+        
+        /* Notify Section */
+        .notify-section {
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .notify-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .notify-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        .notify-desc {
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .email-input {
+            flex: 1;
+            padding: 15px 20px;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 4px;
+            color: #f0f0f0;
+            font-size: 1rem;
+        }
+        
+        .email-input:focus {
+            outline: none;
+            border-color: #555;
+        }
+        
+        .notify-btn {
+            padding: 15px 30px;
+            background-color: #222;
+            color: #f0f0f0;
+            border: 1px solid #333;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        .notify-btn:hover {
+            background-color: #2a2a2a;
+        }
+        
+        /* Custom Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background-color: #1a1a1a;
+            border-left: 4px solid #444;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transform: translateX(150%);
+            transition: transform 0.4s ease;
+            max-width: 350px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification-icon {
+            font-size: 1.5rem;
+            color: #ddd;
+        }
+        
+        .notification-content {
+            flex: 1;
+        }
+        
+        .notification-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .notification-message {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .notification-close {
+            background: none;
+            border: none;
+            color: #aaa;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+        
+        .notification-close:hover {
+            color: #f0f0f0;
+        }
+        
+        /* Social Media Styles */
+        .social-section {
+            margin: 40px 0;
+        }
+        
+        .social-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #aaa;
+            font-weight: 400;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+        
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: 1px solid #333;
+        }
+        
+        .social-icon:hover {
+            background-color: #222;
+            transform: translateY(-3px);
+        }
+        
+        /* Footer Styles */
+        footer {
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid #222;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                gap: 20px;
+            }
+            
+            .logo-text {
+                font-size: 1.8rem;
+            }
+            
+            .coming-soon {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.5rem;
+            }
+            
+            .description {
+                font-size: 1rem;
+                padding: 0 15px;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .input-group {
+                flex-direction: column;
+            }
+            
+            .social-icons {
+                gap: 15px;
+            }
+            
+            .social-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+            
+            .notification {
+                right: 10px;
+                left: 10px;
+                max-width: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .coming-soon {
+                font-size: 2rem;
+            }
+            
+            .tagline {
+                font-size: 1.3rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .social-icons {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+            
+            .logo-text {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Notification -->
+    <div class="notification" id="notification">
+        <div class="notification-icon">
+            <i class="fas fa-bell"></i>
+        </div>
+        <div class="notification-content">
+            <div class="notification-title" id="notif-title">Notification</div>
+            <div class="notification-message" id="notif-message">This is a notification message</div>
+        </div>
+        <button class="notification-close" id="notif-close">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    
+    <header>
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo-container">
+                    <div class="logo-text">NEXORA</div>
+                    <div class="tagline-small">Your Next Aura</div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <section class="main-content">
+            <div class="container">
+                <h1 class="tagline">Your Next Aura</h1>
+                <p class="description">Nexora is an innovative platform that will transform how you connect with your digital presence. We're crafting something extraordinary for you.</p>
+                
+                <h2 class="coming-soon">COMING SOON</h2>
+                
+                <div class="social-section">
+                    <h3 class="social-title">Follow us for updates</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="features-section">
+            <div class="container">
+                <h2 class="section-title">Key Features</h2>
+                <div class="features-container">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h3 class="feature-title">Privacy First</h3>
+                        <p class="feature-desc">Your data belongs to you. We implement end-to-end encryption and give you full control over your information.</p>
+                    </div>
+                    
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3 class="feature-title">Smart Insights</h3>
+                        <p class="feature-desc">AI-powered analytics that help you understand and optimize your digital presence across platforms.</p>
+                    </div>
+                    
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h3 class="feature-title">Custom Aura</h3>
+                        <p class="feature-desc">Create a unique digital identity that reflects your personality and values across all your online interactions.</p>
+                    </div>
+                    
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h3 class="feature-title">Seamless Integration</h3>
+                        <p class="feature-desc">Connect all your social platforms in one dashboard for a unified digital experience.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="notify-section">
+            <div class="container">
+                <h2 class="notify-title">Get Notified When We Launch</h2>
+                <p class="notify-desc">Be the first to know when Nexora is available. Sign up for early access.</p>
+                
+                <form class="notify-form" id="notifyForm">
+                    <div class="input-group">
+                        <input type="email" class="email-input" id="emailInput" placeholder="Enter your email address" required>
+                        <button type="submit" class="notify-btn">Notify Me</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Nexora. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Custom Notification System
+        const notification = document.getElementById('notification');
+        const notifTitle = document.getElementById('notif-title');
+        const notifMessage = document.getElementById('notif-message');
+        const notifClose = document.getElementById('notif-close');
+        const notifyForm = document.getElementById('notifyForm');
+        const emailInput = document.getElementById('emailInput');
+        
+        // Show notification function
+        function showNotification(title, message, duration = 5000) {
+            notifTitle.textContent = title;
+            notifMessage.textContent = message;
+            notification.classList.add('show');
+            
+            // Auto hide after duration
+            setTimeout(() => {
+                hideNotification();
+            }, duration);
+        }
+        
+        // Hide notification function
+        function hideNotification() {
+            notification.classList.remove('show');
+        }
+        
+        // Close notification when X is clicked
+        notifClose.addEventListener('click', hideNotification);
+        
+        // Form submission handler
+        notifyForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = emailInput.value.trim();
+            
+            if (email) {
+                // Validate email format
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                
+                if (emailRegex.test(email)) {
+                    // Success notification
+                    showNotification(
+                        'Success!', 
+                        `We'll notify you at ${email} when Nexora launches.`, 
+                        6000
+                    );
+                    
+                    // Reset form
+                    emailInput.value = '';
+                } else {
+                    // Error notification for invalid email
+                    showNotification(
+                        'Invalid Email', 
+                        'Please enter a valid email address.', 
+                        4000
+                    );
+                }
+            } else {
+                // Error notification for empty field
+                showNotification(
+                    'Email Required', 
+                    'Please enter your email address to get notified.', 
+                    4000
+                );
+            }
+        });
+        
+        // Show welcome notification after page loads
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                showNotification(
+                    'Welcome to Nexora', 
+                    'We\'re excited to have you here. Stay tuned for our launch!', 
+                    5000
+                );
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
